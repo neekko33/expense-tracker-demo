@@ -8,6 +8,10 @@ export default function RootLayout() {
       <StatusBar style='auto' />
       <Stack>
         <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+        <Stack.Screen
+          name='ManageExpenses'
+          options={{ presentation: 'modal' }}
+        />
       </Stack>
     </>
   )

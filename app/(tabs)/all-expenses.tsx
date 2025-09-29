@@ -1,6 +1,6 @@
-import { Text } from 'react-native'
+import ExpensesOutput from '@/components/expenses-output'
 export default function AllExpensesScreen() {
   return (
-    <Text>All Expenses Screen</Text>
+    <ExpensesOutput expenses={[]} periodName='Total'/>
   )
 }
