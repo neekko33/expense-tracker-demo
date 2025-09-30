@@ -14,11 +14,11 @@ export default function TabLayout() {
         headerTintColor: 'white',
         tabBarStyle: { backgroundColor: globalStyles.colors.primary500 },
         tabBarActiveTintColor: globalStyles.colors.accent500,
-        headerRight: () => (
+        headerRight: ({ tintColor }) => (
           <IconButton
             name='add'
             size={24}
-            color='white'
+            color={tintColor}
             onPress={() => {
               router.navigate('/manage-expenses')
             }}
@@ -49,4 +49,3 @@ export default function TabLayout() {
     </Tabs>
   )
 }
-

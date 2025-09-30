@@ -1,11 +1,23 @@
 import { globalStyles } from '@/constants/styles'
 import { Expense } from '@/types'
 import dayjs from 'dayjs'
+import { useRouter } from 'expo-router'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 export default function ExpensesItem({ expense }: { expense: Expense }) {
+  const router = useRouter()
+  const expensePressHandler = () => {
+    router.navigate({
+      pathname: '/manage-expenses',
+      params: { expenseId: expense.id },
+    })
+  }
+
   return (
-    <Pressable>
+    <Pressable
+      onPress={expensePressHandler}
+      style={({ pressed }) => pressed && styles.pressed}
+    >
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <Text style={[styles.textBase, styles.description]}>
@@ -64,5 +76,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     color: globalStyles.colors.primary500,
+  },
+  pressed: {
+    opacity: 0.75,
   },
 })
