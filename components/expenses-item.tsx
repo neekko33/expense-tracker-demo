@@ -8,8 +8,12 @@ export default function ExpensesItem({ expense }: { expense: Expense }) {
     <Pressable>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.description}>{expense.description}</Text>
-          <Text style={styles.date}>{dayjs(expense.date).format('MMMM D, YYYY')}</Text>
+          <Text style={[styles.textBase, styles.description]}>
+            {expense.description}
+          </Text>
+          <Text style={[styles.textBase, styles.date]}>
+            {dayjs(expense.date).format('MMMM D, YYYY')}
+          </Text>
         </View>
         <View style={styles.amountContainer}>
           <Text style={styles.amount}>${expense.amount.toFixed(2)}</Text>
@@ -27,6 +31,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 8,
     borderRadius: 6,
+    elevation: 3,
+    shadowColor: globalStyles.colors.gray500,
+    shadowRadius: 4,
+    shadowOffset: { width: 1, height: 1 },
+    shadowOpacity: 0.4,
+  },
+  textBase: {
+    color: globalStyles.colors.primary50,
   },
   innerContainer: {
     flex: 1,
@@ -35,19 +47,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 6,
-    color: globalStyles.colors.primary50,
   },
   date: {
     fontSize: 12,
-    color: globalStyles.colors.primary200,
   },
   amountContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'white',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 4,
+    minWidth: 80,
   },
   amount: {
     fontWeight: 'bold',
     fontSize: 16,
-    color: globalStyles.colors.primary50,
+    color: globalStyles.colors.primary500,
   },
 })

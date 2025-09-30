@@ -1,9 +1,12 @@
+import IconButton from '@/components/ui/icon-button'
 import { globalStyles } from '@/constants/styles'
 import { Ionicons } from '@expo/vector-icons'
-import { Tabs } from 'expo-router'
+import { Tabs, useRouter } from 'expo-router'
 import React from 'react'
 
 export default function TabLayout() {
+  const router = useRouter()
+
   return (
     <Tabs
       screenOptions={{
@@ -11,6 +14,16 @@ export default function TabLayout() {
         headerTintColor: 'white',
         tabBarStyle: { backgroundColor: globalStyles.colors.primary500 },
         tabBarActiveTintColor: globalStyles.colors.accent500,
+        headerRight: () => (
+          <IconButton
+            name='add'
+            size={24}
+            color='white'
+            onPress={() => {
+              router.navigate('/manage-expenses')
+            }}
+          />
+        ),
       }}
     >
       <Tabs.Screen
@@ -36,3 +49,4 @@ export default function TabLayout() {
     </Tabs>
   )
 }
+

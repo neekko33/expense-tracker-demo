@@ -9,8 +9,8 @@ export default function RootLayout() {
       <Stack>
         <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
         <Stack.Screen
-          name='ManageExpenses'
-          options={{ presentation: 'modal' }}
+          name='manage-expenses'
+          options={{ presentation: 'modal', headerShown: false }}
         />
       </Stack>
     </>
