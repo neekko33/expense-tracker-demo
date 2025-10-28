@@ -1,4 +1,4 @@
-import Button from '@/components/ui/button'
+import ExpenseForm from '@/components/manage-expense/expense-form'
 import IconButton from '@/components/ui/icon-button'
 import { globalStyles } from '@/constants/styles'
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
@@ -7,6 +7,7 @@ import { StyleSheet, View } from 'react-native'
 export default function ManageExpensesScreen() {
   const { expenseId } = useLocalSearchParams()
   const screenTitle = expenseId ? 'Edit Expense' : 'Add Expense'
+  const submitButtonLabel = expenseId ? 'Update' : 'Add'
   const router = useRouter()
 
   const deleteExpenseHandler = () => {
@@ -17,21 +18,10 @@ export default function ManageExpensesScreen() {
     router.back()
   }
 
-  const confirmHandler = () => {
-    router.back()
-  }
-
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: screenTitle }} />
-      <View style={styles.buttons}>
-        <Button onPress={cancelHandler} mode='flat' style={styles.button}>
-          Cancel
-        </Button>
-        <Button onPress={confirmHandler} style={styles.button}>
-          {expenseId ? 'Update' : 'Add'}
-        </Button>
-      </View>
+      <ExpenseForm expenseId={expenseId} submitButtonLabel={submitButtonLabel} onCancel={cancelHandler}/>
       {expenseId && (
         <View style={styles.deleteContainer}>
           <IconButton
@@ -58,14 +48,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     borderTopColor: globalStyles.colors.primary200,
     alignItems: 'center',
-  },
-  buttons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    minWidth: 120,
-    marginHorizontal: 8,
   },
 })
