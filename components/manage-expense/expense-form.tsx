@@ -1,28 +1,43 @@
-import { useRouter } from 'expo-router'
 import { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Alert, StyleSheet, Text, View } from 'react-native'
+import { ExpenseFormProps } from '../../types'
 import Button from '../ui/button'
 import Input from './input'
+
 export default function ExpenseForm({
-  onConfirm,
+  formData,
+  onSubmit,
   onCancel,
   submitButtonLabel,
 }: {
-  onConfirm?: () => void
+  formData: ExpenseFormProps | undefined
+  onSubmit: (data: ExpenseFormProps) => void
   onCancel: () => void
   submitButtonLabel: string
 }) {
   const [formValues, setFormValues] = useState({
-    amount: '',
-    date: '',
-    description: '',
+    amount: formData ? formData.amount.toString() : '',
+    date: formData ? formData.date.toISOString().slice(0, 10) : '',
+    description: formData ? formData.description : '',
   })
 
-  const router = useRouter()
   const confirmHandler = () => {
-    if (onConfirm) onConfirm()
+    const expenseData = {
+      amount: +formValues.amount,
+      date: new Date(formValues.date),
+      description: formValues.description,
+    }
 
-    router.back()
+    const amountIsValid = !isNaN(expenseData.amount) && expenseData.amount > 0
+    const dateIsValid = expenseData.date.toString() !== 'Invalid Date'
+    const descriptionIsValid = expenseData.description.trim().length > 0
+
+    if (!amountIsValid || !dateIsValid || !descriptionIsValid) {
+      Alert.alert('Invalid input', 'Please check your entered data.')
+      return
+    }
+
+    onSubmit(expenseData)
   }
 
   const formChangedHandler = (

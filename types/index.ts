@@ -17,3 +17,9 @@ export type ExpensesAction = {
   id?: string,
   payload?: Omit<Expense, 'id'>
 }
+
+export type ExpenseFormProps = {
+  amount: number
+  date: Date
+  description: string
+}
